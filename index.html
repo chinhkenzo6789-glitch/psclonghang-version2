@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Đang chuẩn bị nội dung</title>
+
+<style>
+
+body{
+margin:0;
+font-family:system-ui, -apple-system, sans-serif;
+background:#0f172a;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+}
+
+.container{
+width:460px;
+background:#1e293b;
+padding:35px;
+border-radius:14px;
+text-align:center;
+box-shadow:0 15px 40px rgba(0,0,0,0.45);
+}
+
+.logo{
+width:300px;
+margin-bottom:15px;
+}
+
+.slider{
+width:100%;
+height:200px;
+border-radius:10px;
+overflow:hidden;
+margin-bottom:20px;
+position:relative;
+}
+
+.slider img{
+width:100%;
+height:100%;
+object-fit:cover;
+position:absolute;
+top:0;
+left:0;
+opacity:0;
+transition:opacity 1s;
+}
+
+.slider img.active{
+opacity:1;
+}
+
+.title{
+font-size:20px;
+margin-bottom:8px;
+}
+
+.desc{
+font-size:14px;
+color:#cbd5e1;
+margin-bottom:20px;
+}
+
+.progressBox{
+width:100%;
+height:12px;
+background:#334155;
+border-radius:20px;
+overflow:hidden;
+}
+
+.progressBar{
+height:100%;
+width:0%;
+background:#38bdf8;
+transition:width 1s linear;
+}
+
+.percent{
+margin-top:10px;
+font-size:14px;
+color:#94a3b8;
+}
+
+.status{
+margin-top:12px;
+font-size:14px;
+color:#e2e8f0;
+}
+
+.btn{
+margin-top:25px;
+padding:12px 30px;
+border:none;
+border-radius:8px;
+background:#22c55e;
+color:white;
+font-size:15px;
+cursor:pointer;
+display:none;
+}
+
+.btn:hover{
+background:#16a34a;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+
+@media (max-width:600px){
+
+body{
+height:auto;
+padding:20px;
+align-items:flex-start;
+}
+
+.container{
+width:100%;
+padding:22px;
+border-radius:12px;
+}
+
+.logo{
+width:180px;
+}
+
+.slider{
+height:160px;
+}
+
+.title{
+font-size:18px;
+}
+
+.desc{
+font-size:13px;
+}
+
+.percent,
+.status{
+font-size:13px;
+}
+
+.btn{
+width:100%;
+padding:14px;
+font-size:16px;
+}
+
+}
+</style>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1475094284425885"
+crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+<img src="assets/logo.png" class="logo">
+
+<div class="adBox">
+
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1475094284425885"
+     data-ad-slot="3981552811"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+
+<div class="slider" id="slider"></div>
+
+<div class="title">
+Đang chuẩn bị nội dung
+</div>
+
+<div class="desc">
+Hệ thống đang tạo liên kết an toàn cho bạn
+</div>
+
+<div class="progressBox">
+<div class="progressBar" id="bar"></div>
+</div>
+
+<div class="percent" id="percent">0%</div>
+
+<div class="status" id="status">
+Đang kết nối máy chủ...
+</div>
+
+<button class="btn" id="openBtn">
+Xem ngay
+</button>
+
+</div>
+
+<script>
+
+// ===== lấy link thật =====
+
+const link = "https://chinhkenzo6789-glitch.github.io/psc-thanhlong-thanhhang/";
+
+
+// ===== progress =====
+
+let total = 30;
+let current = 0;
+
+const bar = document.getElementById("bar");
+const percentText = document.getElementById("percent");
+
+const messages = [
+"Đang kết nối máy chủ...",
+"Đang kiểm tra liên kết...",
+"Đang chuẩn bị dữ liệu...",
+"Đang tạo link truy cập...",
+"Sắp hoàn tất..."
+];
+
+let timer = setInterval(()=>{
+
+current++;
+
+let percent = Math.floor((current/total)*100);
+
+bar.style.width = percent+"%";
+percentText.innerText = percent+"%";
+
+if(current % 6 === 0){
+let i = Math.floor(current/6);
+if(messages[i]){
+document.getElementById("status").innerText = messages[i];
+}
+}
+
+if(current >= total){
+
+clearInterval(timer);
+
+document.getElementById("status").innerText="Hoàn tất. Đang chuyển hướng...";
+
+document.getElementById("openBtn").style.display="inline-block";
+
+setTimeout(()=>{
+if(link){
+window.location.href = link;
+}
+},2000);
+
+}
+
+},1000);
+
+
+// ===== slideshow =====
+
+const slider = document.getElementById("slider");
+
+let images = [];
+let index = 0;
+
+for(let i=1;i<=5;i++){
+
+let img = new Image();
+img.src = "assets/"+i+".png";
+
+img.onload = function(){
+img.classList.add("slide");
+slider.appendChild(img);
+images.push(img);
+
+if(images.length===1){
+img.classList.add("active");
+}
+}
+
+}
+
+function changeSlide(){
+
+if(images.length===0) return;
+
+images[index].classList.remove("active");
+
+index++;
+
+if(index >= images.length){
+index = 0;
+}
+
+images[index].classList.add("active");
+
+}
+
+setInterval(changeSlide,7000);
+
+
+// ===== button =====
+
+document.getElementById("openBtn").onclick=function(){
+if(link){
+window.location.href = link;
+}
+};
+
+</script>
+
+</body>
+</html>
